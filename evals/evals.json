@@ -1,0 +1,85 @@
+{
+  "skill_name": "context-engineer-christ",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just started a new Node.js + Postgres + Gemini AI project called Baitorng-v2. It's a 3-day sprint, deadline June 20. Help me set up the context architecture.",
+      "expected_output": "Generates Router File (≤50 lines), context/AGENT.md (≤100 lines with all 9 sections), context/LAWS.md skeleton, context/SKILL_INDEX.md, .learnings/errors/ folder, .gitignore additions. All 8 deliverables ready.",
+      "files": [],
+      "assertions": [
+        "Router File is under 50 lines",
+        "AGENT.md contains all 9 required sections including LAST SESSION HANDOFF block",
+        "SKILL_INDEX.md is included",
+        ".learnings/errors/ folder creation command included",
+        ".gitignore additions specified",
+        "Response routes through Module 1 (Design)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "My Claude Code session is at 40% context and I'm mid-task on a security audit for my chatbot upload endpoint. Haven't committed yet. What do I do?",
+      "expected_output": "Routes to Module 3. Gives clear decision: compress context (not fresh session) since mid-task + no commit. Exact steps: update AGENT.md → fill LAST SESSION HANDOFF → compress. Explains why fresh session would lose work.",
+      "files": [],
+      "assertions": [
+        "Recommends compress/compact (not fresh session) because mid-task",
+        "Lists the pre-compress steps in order: update AGENT.md first, then handoff block",
+        "Explains the difference between compress and fresh session",
+        "Response is under 20 lines",
+        "Routes through Module 3 (Session Engineering)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Should I use the most powerful model or the fastest model for writing unit tests for my upload endpoint?",
+      "expected_output": "Routes to Module 4. Answers: Tier 1 (Daily Driver / fastest). Explains why: unit tests = mechanical execution = Tier 1. Warns against switching to Tier 2 unnecessarily. Directs to provider docs for current model names.",
+      "files": [],
+      "assertions": [
+        "Recommends Tier 1 (Daily Driver), not Tier 2",
+        "Explains why: unit tests are mechanical execution",
+        "Does NOT hardcode specific model names",
+        "Points to provider docs for current names",
+        "Routes through Module 4 (Model Tier Routing)",
+        "Response is under 20 lines"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "My AGENT.md is 180 lines and the AI agent keeps forgetting what we built last session. Fix it.",
+      "expected_output": "Routes to Module 2 (Trim Protocol). Identifies bloat, moves detail to LAWS.md with pointer examples. Keeps: CURRENT STATE, NEXT TASKS, KEY FILES, RUN commands, LAST HANDOFF. Verifies wc -l ≤ 100.",
+      "files": [],
+      "assertions": [
+        "Routes through Module 2 (Trim Protocol)",
+        "Identifies what to move vs keep",
+        "Shows pointer format example",
+        "Runs wc -l verification after trim",
+        "Result AGENT.md is under 100 lines"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "I switched from Gemini CLI to Antigravity CLI. What file do I use as my Router File now?",
+      "expected_output": "Routes to Universal Vocabulary table. Answers: AGENTS.md or GEMINI.md for Antigravity CLI. Notes Gemini CLI was deprecated June 18, 2026. Explains Agent Brain (AGENT.md) stays the same across tools.",
+      "files": [],
+      "assertions": [
+        "Correctly identifies AGENTS.md or GEMINI.md for Antigravity CLI",
+        "Notes Gemini CLI is deprecated",
+        "Explains Agent Brain (context/AGENT.md) is the same regardless of tool",
+        "Does not confuse Antigravity CLI Router File with Gemini CLI",
+        "Response is under 15 lines"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "I'm using Kiro from AWS for my new project. How do I set up my context architecture?",
+      "expected_output": "Routes to Universal Vocabulary + Module 1. Identifies .kiro/steering/*.md as Router File equivalent for Kiro. All other layers (context/AGENT.md, LAWS.md, .learnings/) are the same. Delivers 8-item Output Contract.",
+      "files": [],
+      "assertions": [
+        "Correctly identifies .kiro/steering/*.md as Kiro's Router File",
+        "Agent Brain (context/AGENT.md) stays the same",
+        "Module 1 Output Contract still applies",
+        "All 8 deliverables mentioned",
+        "Response routes through Module 1 with tool-specific Router File note"
+      ]
+    }
+  ]
+}
