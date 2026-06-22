@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Global installer for Context Engineer Christ (Antigravity CLI / Gemini CLI)
+# Global installer for Context Engineer Por (Antigravity CLI / Gemini CLI)
 
 set -e
 
@@ -27,4 +27,4 @@ cp -r "$(dirname "$0")" "$TARGET_DIR"
 echo ""
 echo "✅ Successfully installed $SKILL_NAME to $TARGET_DIR"
 echo "You can now use this skill in any Antigravity CLI project!"
-echo "Just ask the agent: 'Set up my context architecture using context-engineer-christ.'"
+echo "Just ask the agent: 'Set up my context architecture using context-engineer-por.'"
