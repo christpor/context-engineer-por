@@ -1,5 +1,7 @@
 # Context Engineer Por — Production AI Context Engineering OS
 
+<img alt="Context OS Mascot" src="assets/mascot.jpg" width=200 align=right>
+
 An elite context engineering OS for production AI projects. Works universally out-of-the-box with **Antigravity CLI**, **Claude Code**, **Cursor**, **GitHub Copilot**, **Windsurf**, and **Codex/OpenAI CLI**.
 
 It enforces a strict 3-layer architecture, combats context rot, and completely isolates its modules to prevent hallucinations.
