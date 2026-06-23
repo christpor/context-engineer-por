@@ -1,46 +1,46 @@
-# Context Engineer Por — Production AI Context Engineering OS
+<p align="center"><img src="assets/mascot.jpg" alt="Context OS Mascot" width="300"/></p>
 
-<img alt="Context OS Mascot" src="assets/mascot.jpg" width=200 align=right>
+# 🧠 Context Engineer Por
+> **The Elite Context Engineering OS.** Never let your AI agents suffer from context rot or amnesia again.
 
-An elite context engineering OS for production AI projects. Works universally out-of-the-box with **Antigravity CLI**, **Claude Code**, **Cursor**, **GitHub Copilot**, **Windsurf**, and **Codex/OpenAI CLI**.
-
-It enforces a strict 3-layer architecture, combats context rot, and completely isolates its modules to prevent hallucinations.
-
----
-
-## 🚀 How to Deploy / Install
-
-You have two ways to deploy this skill depending on your workflow:
-
-### 1. Global Installation (Best for Antigravity CLI / Gemini CLI)
-If you want this skill available automatically in *every* project on your computer:
-
-1. Open your terminal in this directory.
-2. Run the installer script:
-   ```bash
-   chmod +x install.sh
-   ./install.sh
-   ```
-This will copy the skill to your global `~/.gemini/config/skills/` directory.
-
-### 2. Project-Specific Installation (Best for Cursor, Claude Code, Windsurf)
-If you are moving this to another computer or want it embedded inside a specific repository:
-
-1. Create a skills folder in your project root:
-   ```bash
-   mkdir -p .agents/skills
-   ```
-2. Copy this entire `context-engineer-christ` folder into it:
-   ```bash
-   cp -r /path/to/context-engineer-por .agents/skills/
-   ```
+Are your AI agents forgetting instructions? Writing bloated files? Crashing due to token limits? **Context Engineer Por** is the ultimate AI architecture skill that mathematically limits context size and enforces "Progressive Context Tiers" across your entire workspace.
 
 ---
 
-## ⚡ How to Use
+## ✨ Why You Need This
+- 🚫 **Zero-Bloat Assurance:** Forces agents to use standard libraries instead of writing boilerplate.
+- 📉 **Context Compression:** Instantly trims `AGENTS.md` and `.cursorrules` to their highest-signal state.
+- 🤝 **Cross-IDE Compatible:** Works universally with Antigravity CLI, Cursor, Windsurf, and Claude Code.
 
-Once deployed, you don't need to do anything complex. Just open your AI terminal or IDE and say:
+---
 
-> *"Please set up the context architecture for this project using the context-engineer-christ skill."*
+## 🏗️ The Progressive Architecture
 
-The agent will automatically discover the `SKILL.md` file, run the **Phase 0 Silent Audit**, and begin generating your `AGENTS.md`, `SKILL_INDEX.md`, and `.learnings/errors/` directories based on the rules.
+<p align="center"><img src="assets/architecture_banner.jpg" alt="Context Tiers Architecture" width="800"/></p>
+
+This OS automatically scales based on the size of your project:
+1. **Tier 1 (Small Scripts):** Tiny routing files. High speed, low token usage.
+2. **Tier 2 (Core Projects):** Adds the `Write-or-Die` learning loops and session handoffs.
+3. **Tier 3 (Enterprise):** Deploys the deep-reference `LAWS.md` and rigorous tripwire integrations.
+
+---
+
+## 🚀 Quick Start & Installation
+
+You are just one command away from elite context engineering.
+
+```bash
+# Clone the skill directly into your global agent toolkit
+git clone https://github.com/christpor/context-engineer-por.git ~/.gemini/config/skills/context-engineer-por
+```
+
+### How to Trigger the Skill
+Once installed, just open your terminal or AI IDE and paste this prompt:
+
+> *"Please set up the context architecture for this project using the context-engineer-por skill."*
+
+The OS will automatically take over, run a **Phase 0 Silent Audit** of your codebase, and build the exact context tier you need.
+
+---
+### ⚖️ License
+This operating system is released under the **MIT License**. Build securely!
