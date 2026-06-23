@@ -14,88 +14,77 @@ description: >
 > More context ≠ better. Past a threshold, extra tokens actively degrade reasoning.
 > Goal: smallest set of high-signal tokens = maximum output quality."
 
-This isn't just my rule — it's Anthropic's, near-verbatim: context engineering is *"finding the
-smallest possible set of high-signal tokens that maximize the likelihood of some desired outcome."*
-It holds because of how transformers process attention (n² relationships → a finite budget), not any tool.
-
 Tone: direct, peer-to-peer. Zero fluff. Show plan → wait for GO → execute.
 
 ---
 
 ## UNIVERSAL VOCABULARY — Read This First
 
-This skill uses tool-agnostic terms. Here's how they map to your specific tool:
-
-| Universal Term | Claude Code | Cursor | GitHub Copilot | Windsurf | Antigravity CLI | Codex/OpenAI CLI |
-|---------------|-------------|--------|----------------|----------|-----------------|------------------|
-| **Router File** | `CLAUDE.md` | `.cursorrules` | `.github/copilot-instructions.md` | `.windsurfrules` | `AGENTS.md` or `GEMINI.md` | `AGENTS.md` |
-| **Agent Brain** | `context/AGENT.md` | same | same | same | same | same |
-| **Compress Context** | `/compact` | New chat | New chat | New chat | New chat | New chat |
+| Universal Term | Claude Code | Cursor | GitHub Copilot | Windsurf | Antigravity CLI |
+|---------------|-------------|--------|----------------|----------|-----------------|
+| **Router File** | `CLAUDE.md` | `.cursorrules` | `.github/copilot-instructions.md` | `.windsurfrules` | `AGENTS.md` or `GEMINI.md` |
+| **Agent Brain** | `context/AGENT.md` | same | same | same | same |
+| **Compress Context** | `/compact` | New chat | New chat | New chat | New chat |
 
 **Agent Brain and Deep Reference (LAWS.md) are identical across ALL tools.**
-Only the Router File name and Compress command change per tool.
-
-**This table verified: June 2026.** AI tools change fast — these principles apply to ANY new terminal agent or IDE. Always verify at the tool's official docs.
 
 ---
 
 ## Phase 0 — Silent Audit (run before every response, never show this)
 
 **CRITICAL CONSTRAINTS:**
-- **Cross-Skill Isolation:** You must ONLY reference and use Modules 1-10 defined in THIS skill. IGNORE any module numbers or reference files (e.g., AXIOM OS modules) that might exist in other skills or `references/` folders in the workspace. Do not hallucinate modules.
-- **Output Restraint:** If the prompt or evaluation sets a line limit (e.g., "max 15 lines"), you MUST strictly adhere to it. Be ultra-concise. Do not output full reference documents unless explicitly requested.
+1. **Zero-Delta Baseline (Ponytail Rule):** New Files = 0 by default. To generate a new file, you must mathematically prove why existing utilities, stdlib, or native features failed (the "Ponytail Ladder").
+2. **Cross-Skill Isolation:** ONLY use modules in THIS skill. Do not hallucinate external modules.
+3. **Byte-Stable Caching:** Keep System Instructions and Router logic at the absolute top of the context window. Push dynamic variables to the bottom.
 
 Before writing anything visible, scan:
-1. Does this project have a Router File? How many lines? Over 50 → flag
-2. Is there a `context/AGENT.md`? Over 100 lines → flag
-3. Does `.learnings/errors/` exist? Any unread error files? → scan before task
-4. What's the current context token % if visible?
-5. Is this NEW project (no structure) or EXISTING (has structure, needs fixing)?
+1. Does this project have a Router File? Over 50 lines? → flag
+2. Is there a `context/AGENT.md`? Over 100 lines? → flag
+3. Are we writing new code? Did we check for existing helpers first?
+4. What's the project size? → Select Tier (Tier 1: Small | Tier 2: Core | Tier 3: Enterprise)
 
 → Route to the correct module based on what you find.
 
 ---
 
-## Module Router
-> **CRITICAL WARNING:** Only use Modules 1-10 from this table. Do not invent modules or pull from other skills in the workspace.
+## Module Router (Progressive Context Tiers)
+
 > **JUST-IN-TIME RETRIEVAL:** Do NOT load the whole skill. Read the specific file path listed below ONLY when needed.
 
-| Situation | Module Path |
-|-----------|-------------|
-| Read about the 3-Layer Architecture / Mental Model | `modules/00-architecture.md` |
-| New project, no context structure | `modules/01-design.md` |
-| Context files too long / bloated | `modules/02-trim.md` |
-| Session getting heavy, token warning | `modules/03-session.md` |
-| "Which model should I use?" | `modules/04-model-tier.md` |
-| Fresh agent confused, missed context | `modules/05-amnesia.md` |
-| SKILL_INDEX broken or missing | `modules/06-skill-index.md` |
-| Session ending, need to hand off | `modules/07-handoff.md` |
-| Agent repeated a past mistake | `modules/08-correction.md` |
-| Switching AI tools mid-project | `modules/09-cross-tool.md` |
-| Anytime (retrieval + done-discipline) | `modules/10-universal.md` |
-| Existing project, full audit | `references/01-audit-protocol.md` |
+| Trigger Category | Specific Situation | Module Path |
+|------------------|--------------------|-------------|
+| **[1] Setup / Architect** | New project design (Tier 1-3 setup) | `modules/01-design.md` |
+| | Read about the 3-Layer Architecture | `modules/00-architecture.md` |
+| **[2] Trim / Fix Amnesia** | Context bloated, amnesia, token warnings | `modules/02-trim.md` / `03-session.md` |
+| | Fresh agent confused, missed context | `modules/05-amnesia.md` |
+| **[3] Handoff / Learnings** | Session ending, handoff protocol | `modules/07-handoff.md` |
+| | Agent repeated a past mistake | `modules/08-correction.md` |
+| **[4] Meta / Tooling** | Switching AI tools mid-project | `modules/09-cross-tool.md` |
+| | "Which model should I use?" | `modules/04-model-tier.md` |
+| | Existing project full audit | `references/01-audit-protocol.md` |
 
 ---
 
-## Output Contract — Full Context Engineering Deliverable
+## Output Contract — Progressive Context Setup
 
-When you finish designing or fixing a project's context architecture (Module 1), verify all 8 exist:
+When executing Module 1 (Design), build ONLY the files required for the selected Tier:
 
-1. **Router File** — ≤ 50 lines, tool-appropriate name, points to AGENT.md and SKILL_INDEX
-2. **`context/AGENT.md`** — ≤ 100 lines, passes all 10 Amnesia Test checks
-3. **`context/LAWS.md`** — deep reference, any size, section headers present
-4. **`context/SKILL_INDEX.md`** — verified skills only, task-mapped, [YOUR_SKILLS_PATH]
-5. **`context/CONTEXT_ENGINEERING.md`** — session guide for this project
-6. **`.learnings/errors/`** — folder initialized, scan rule added to SESSION START
-7. **LAST SESSION HANDOFF block** — filled in AGENT.md before any session ends
-8. **`.gitignore`** — Router File + `context/` + `.learnings/` listed (NEVER committed)
+**Tier 1: Small Project (Scripts/Weekends)**
+1. **Router File** — ≤ 50 lines, contains "Ponytail Lazy Dev" mandate.
+2. **`context/AGENT.md`** — ≤ 100 lines, must pass Amnesia Test.
 
-If any of these 8 are missing → context architecture is incomplete.
+**Tier 2: Core Project (Standard)**
+* All of Tier 1 +
+3. **`.learnings/errors/`** — initialized folder.
+4. **LAST SESSION HANDOFF** — block added to AGENT.md tracking Ponytail (+/- diffs).
+
+**Tier 3: Enterprise (Scaled AI System)**
+* All of Tier 2 +
+5. **`context/LAWS.md`** — Deep reference, includes "Lazy Dev Architecture" rules.
+6. **`context/SKILL_INDEX.md`** — Verified skills routing.
+7. **Tripwire Integrations** — Pushback gates injected into AGENT.md.
 
 ---
 
 ## Self-Updating Note
-
-**v4.0 — 2026-06-22.** Modularized for extreme token optimization. Reduced core file to ~100 lines. Implemented Cross-Tool Handoff and Cross-Skill Isolation.
-
-**The meta-rule:** If something in this skill will be wrong in 6 months → make it a principle instead of a specific name. The TIER system and PRINCIPLES stay valid forever.
+**v4.1 — 2026-06-23.** Master Refactor. Implemented "Lazy Senior Dev" Zero-Delta math, Progressive Context Tiers (1-3), and Byte-Stable Caching prioritization. 
