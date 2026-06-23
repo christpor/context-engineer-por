@@ -44,3 +44,5 @@ The OS will automatically take over, run a **Phase 0 Silent Audit** of your code
 ---
 ### ⚖️ License
 This operating system is released under the **MIT License**. Build securely!
+---
+Build by Christpor :) <3
