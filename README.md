@@ -2,9 +2,11 @@
   <img src="assets/context_hero_banner.jpg" alt="Context Engineer Por Hero Banner" width="100%"/>
 </p>
 
-The Elite Context Engineering OS. Mathematically trim agent token bloat and optimize cognitive capacity using Progressive Context Tiers.
+<p align="center">
+  The Elite Context Engineering OS. Mathematically trim agent token bloat and optimize cognitive capacity using Progressive Context Tiers.
+</p>
 
-<p align="left">
+<p align="center">
   <img src="https://img.shields.io/badge/Architecture-Progressive_Tiers-blue?style=flat-square" alt="Architecture" />
   <img src="https://img.shields.io/badge/Version-v4.1-orange?style=flat-square" alt="Version" />
   <img src="https://img.shields.io/badge/Status-Production-success?style=flat-square" alt="Status" />
