@@ -9,15 +9,14 @@
 </p>
 
 <p align="center">
-  <img src="https://shieldcn.dev/badge/Version-v6.0-emerald?variant=secondary" alt="Version" />
-  <img src="https://shieldcn.dev/badge/Engine-Progressive_Tiers-blue?variant=secondary" alt="Engine" />
-  <img src="https://shieldcn.dev/badge/Security-Sovereign_Gate_5%2F5-cyan?variant=secondary" alt="Security" />
-  <img src="https://shieldcn.dev/badge/Budget-%E2%89%A4150_Lines_Total-purple?variant=secondary" alt="Budget" />
-  <img src="https://shieldcn.dev/badge/License-MIT-zinc?variant=secondary" alt="License" />
+  <img src="https://shieldcn.dev/badge/Version-v6.0?variant=secondary&theme=emerald" alt="Version" />
+  <img src="https://shieldcn.dev/badge/Engine-Progressive_Tiers?variant=secondary&theme=blue" alt="Engine" />
+  <img src="https://shieldcn.dev/badge/Security-Sovereign_Gate_5%2F5?variant=secondary&theme=cyan" alt="Security" />
+  <img src="https://shieldcn.dev/badge/License-MIT?variant=secondary&theme=zinc" alt="License" />
 </p>
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=python,bash,ts,nodejs,markdown,git,docker,linux&perline=8" alt="Supported Stack" />
+  <img src="https://skillicons.dev/icons?i=bash,python,git,linux,markdown&perline=5" alt="Real Tech Stack" />
 </p>
 
 ---
