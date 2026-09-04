@@ -18,7 +18,7 @@ Build the Progressive Context system based on the Project Tier (Tier 1: Small | 
 5. CURRENT STATE — branch + last commit + pending (6 lines)
 6. NEXT TASKS — priority order (6 lines)
 7. KEY FILES & UTILS — 5–8 files. **Must list shared project utilities** to mathematically enforce reuse over boilerplate generation. (6 lines)
-8. RUN + PUSH — exact commands. **Must include:** *"Shortest working diff wins. Delete boilerplate before committing."* (6 lines)
+8. RUN + PUSH & GIT SAFETY — exact commands (`npm run save "msg"`). **Must include:** zero-token WIP saving, feature branch isolation, direct `main` protection, and rollback instructions (`git log -n 5`, `git checkout <hash>`).
 9. LAST SESSION HANDOFF — what was built + next step. **Must include:** *"Ponytail Diff: +X / -Y lines."* (10 lines)
 
 ### Layer 3 — Deep Reference (context/LAWS.md) — NO LIMIT (Tier 3 Only)

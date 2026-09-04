@@ -19,5 +19,7 @@ When a context file is over its limit, trim it — don't just add to it.
 ### Quick check (run this anytime):
 ```bash
 wc -l [router-file] context/AGENT.md context/SKILL_INDEX.md
+# or scan a whole project at once and get a pass/fail exit code:
+python3 context-engineer-por/scripts/token_audit.py audit <project-root>
 ```
 Over limit = fix before next task.

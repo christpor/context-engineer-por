@@ -1,32 +1,24 @@
 ## Module 4 — Model Tier Routing
 
-**Never hardcode model names in your context files or skills.** Model names change every
-6 months. Capabilities don't. Route by tier, then verify current names at provider docs.
+**Never hardcode model names in context files, modules, or skills.** Model names change every
+6 months; capabilities don't. Route by tier, resolve tier → current model in ONE place:
+`references/00-model-profiles.md` (the only file allowed to hold names, IDs, windows, prices).
 
 ### The 3 Tiers
 
-**Tier 1 — Daily Driver (use for 80–90% of all work)**
-- Characteristics: fast, cost-efficient, handles code and mechanical tasks well
-- How to identify: usually labeled "flash", "mini", "lite", "sonnet", "4o" in provider lineup
-- Use for: coding, file edits, bug fixes, QA, security fixes, DB models, architecture
-- Default: always start here
+- **Tier 1 — Micro/programmatic:** the smallest, cheapest entry in the provider's lineup.
+  For production app code calling a model API — never as your terminal driver.
+- **Tier 2 — Daily Driver (80–90% of all work):** fast, cost-efficient, strong at code and
+  mechanical tasks. Always start here.
+- **Tier 3 — Frontier (escalation only):** highest capability, 3–5× Tier 2 cost, sometimes a
+  fast-burn quota drain. Switch ONLY after Tier 2 failed the same task twice, or for security
+  audits / pre-merge reviews / multi-service architecture. Full decision table + escalation
+  protocol: `references/03-model-routing.md`.
 
-**Tier 2 — Deep Reasoner (use sparingly)**
-- Characteristics: highest capability, slower, more expensive (usually 3–5x Tier 1 cost)
-- How to identify: usually labeled "opus", "pro", "max", "o1", "thinking", "preview"
-- Use for: ONLY after Tier 1 failed the same task 2 times
-- The trap: don't switch because the task "sounds important" — switch only on proven failure
+### On session start
+1. Look up your current model in `references/00-model-profiles.md` (add a row if missing —
+   from provider docs, never from memory).
+2. Note its burn rate and set your checkpoint instrument to the row's token-limit.
+3. Note its cache TTL — batch prompts inside one TTL window.
 
-**Tier 3 — Micro (never use in terminal)**
-- Characteristics: smallest, cheapest
-- How to identify: usually "haiku", "nano", "mini", smallest in provider lineup
-- Use for: AI apps calling the model API programmatically in production code
-
-### How to find current model names:
-```
-Anthropic: docs.anthropic.com/en/docs/about-claude/models
-OpenAI:    platform.openai.com/docs/models
-Google:    ai.google.dev/gemini-api/docs/models
-Others:    check provider's official model page
-```
-Verify before starting any new project. Names drift. Tiers don't.
+Names drift. Tiers don't. Verify rows older than 90 days at provider docs.

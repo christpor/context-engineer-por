@@ -108,3 +108,47 @@ Priority fix: [the most critical one]
 ```
 
 Keep it under 15 lines. Don't dump the full checklist — just the actionable delta.
+
+---
+
+## Infrastructure & Cost Health Check (Extension — v6.1)
+
+> Added 2026-08-24 after billing incident. Run this alongside the 10-point audit
+> whenever the project deploys to cloud infrastructure.
+
+### The 5-Point Infra Safety Audit
+
+Score 1 point for each YES. Run ONLY for projects with cloud deployments.
+
+- [ ] Deployment skill has a **cost/budget section** with free-tier math?
+- [ ] Deploy command includes explicit **scale-to-zero** flags (`--min-instances=0` or equivalent)?
+- [ ] **Post-deploy verification** step exists (confirms scaling config after deploy)?
+- [ ] **Orphan resource audit** command exists (checks for abandoned services across regions)?
+- [ ] **Rollback procedure** documented with exact commands (< 60 seconds to execute)?
+
+### Infra Score Interpretation
+
+| Score | Status | Action |
+|-------|--------|--------|
+| 5 | Safe | Infra skills are complete |
+| 3–4 | Risky | Missing sections could cost money silently |
+| 0–2 | Dangerous | Agent will burn money without knowing — fix immediately |
+
+### Red Flag 7: Deployment skill has no cost section
+
+- Symptom: Skill deploys to cloud but never mentions pricing, free tier, or budget
+- Risk: Agent deploys with always-on config → bills accumulate while founder sleeps
+- Fix: Run Module 11 (Skill Integrity Checklist) → add mandatory infra sections
+- Real example: `kapi-deployment` had zero cost awareness → $5/month on idle container
+
+### Red Flag 8: No post-deploy scaling verification
+
+- Symptom: Deploy command exists but nothing checks the result's scaling config
+- Risk: A flag like `--min-instances=1` silently overrides scale-to-zero
+- Fix: Add verification command after every deploy (check annotations/config)
+
+### Red Flag 9: Orphan resources in other regions
+
+- Symptom: Services deployed to multiple regions during experimentation, forgotten
+- Risk: Dead services may still allocate resources or incur minimum charges
+- Fix: `gcloud run services list` (or equivalent) as pre-deploy audit step

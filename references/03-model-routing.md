@@ -1,122 +1,70 @@
-# Reference 03 — Model Routing Table
-> Load this when deciding which Claude model to use for a task.
-> Verified against official docs 2026-06-17. Re-check at platform.claude.com before
-> using model IDs in production API code — names and parameters drift.
+# Reference 03 — Model Routing (tier-based, model-agnostic)
+> Load this when deciding which model to use for a task.
+> No model names live here — resolve tiers against `references/00-model-profiles.md`.
 
 ---
 
 ## The Core Rule
 
-Route 80-90% of work to Sonnet 4.6 by default.
-Switch to Opus 4.8 ONLY when cognitive stakes are genuinely high.
-Never switch just because context is full — that's the wrong reason and burns daily limits faster.
+Route 80–90% of work to **Tier 2** (daily driver) by default.
+Escalate to **Tier 3** (frontier) ONLY when cognitive stakes are genuinely high.
+Never escalate just because context is full — that's a session problem, not a model problem.
 
 ---
 
-## Full Decision Table
+## Decision Table (by tier)
 
-| Task Type | Model | Why |
-|-----------|-------|-----|
-| Writing feature code (controllers, services, models) | Sonnet 4.6 | Strong code, fast, cheap |
-| Fixing a specific bug with known cause | Sonnet 4.6 | Mechanical execution |
-| Writing tests / QA scripts | Sonnet 4.6 | Formulaic work |
-| Building DB models, cron jobs, middleware | Sonnet 4.6 | Pattern-following tasks |
-| Reading and editing specific files | Sonnet 4.6 | No deep reasoning needed |
-| Setting up folder structure, configs | Sonnet 4.6 | Mechanical |
-| Session start / reading AGENT.md | Sonnet 4.6 | Administrative |
-| Security audit (prompt injection, rate limits, upload sandbox) | Opus 4.8 | Needs to find edge cases humans miss |
-| Pre-merge final review (multi-file, CTO-level) | Opus 4.8 | High-stakes, needs deep reasoning |
-| Architecture decision across 5+ files | Opus 4.8 | Synthesis of many concerns |
-| Bug that Sonnet couldn't crack after 2 attempts | Opus 4.8 | Escalate when Sonnet fails |
-| Designing a new system from scratch (multi-service) | Opus 4.8 | Complex tradeoff analysis |
-| Writing API code that calls Claude programmatically | Haiku 4.5 | When building an app, not for Claude Code |
+| Task Type | Tier | Why |
+|-----------|------|-----|
+| Writing feature code (controllers, services, models) | 2 | Strong code, fast, cheap |
+| Fixing a specific bug with known cause | 2 | Mechanical execution |
+| Writing tests / QA scripts | 2 | Formulaic work |
+| DB models, cron jobs, middleware, configs | 2 | Pattern-following |
+| Reading and editing specific files, session admin | 2 | No deep reasoning needed |
+| Security audit (prompt injection, rate limits, sandbox) | 3 | Must find edge cases humans miss |
+| Pre-merge final review (multi-file, CTO-level) | 3 | High-stakes deep reasoning |
+| Architecture decision across 5+ files, new multi-service design | 3 | Synthesis of many concerns |
+| Bug Tier 2 couldn't crack after 2 attempts | 3 | Escalate on proven failure only |
+| Production app code calling a model API programmatically | 1 | Cheapest that passes your evals |
 
 ---
 
-## Real Examples From Baitorng
+## The Frontier Trap (Common Mistake)
 
-**Use Sonnet 4.6:**
-- "Write the cropProfile.model.js Sequelize model" → Sonnet (pattern-following)
-- "Add the 2AM agrometeo cron job to chat.service.js" → Sonnet (specific, bounded)
-- "Fix the Khmer TTS sentence-splitting bug" → Sonnet (known file, specific bug)
-- "Write the Phase 2 QA test script" → Sonnet (formulaic testing)
-- "Read AGENT.md and tell me where we left off" → Sonnet (administrative)
+**Wrong reasons to escalate to Tier 3:**
+- "Context is at 40% and I'm stuck" → session management issue: compact or fresh session.
+- "I want the best possible answer" → Tier 2 is excellent for 90% of tasks.
+- "This is important" → importance ≠ complexity. Important + mechanical = still Tier 2.
 
-**Use Opus 4.8:**
-- "Security audit: check for prompt injection in chat.service.js" → Opus (needs to find subtle edge cases)
-- "Pre-merge review: full CTO audit before PR to develop" → Opus (most critical quality gate)
-- "Design the Expert Escalation system for Phase 4" → Opus (new multi-service architecture)
-- "This SSE bug isn't resolving after 2 attempts, help" → Opus (escalate when Sonnet fails)
+**Right reasons:** the task genuinely needs deep reasoning, synthesis, or subtle edge-case
+detection — security audits, complex architecture, final pre-merge reviews.
 
----
-
-## How to Switch Models in Claude Code
-
-```bash
-/model claude-opus-4-8      # switch to Opus 4.8 (security/review sessions)
-/model claude-sonnet-4-6    # switch back to Sonnet 4.6 (coding sessions)
-/model claude-haiku-4-5-20251001  # Haiku (if needed for API cost testing)
-```
-
-**Switching protocol for security sessions:**
-```
-1. /model claude-opus-4-8
-2. Open fresh terminal (don't carry Sonnet session into Opus)
-3. Run security audit
-4. Commit
-5. /model claude-sonnet-4-6
-6. Open fresh terminal for next coding session
-```
-
----
-
-## Opus 4.8 Effort Parameter (for API usage, not Claude Code)
-
-When calling Opus 4.8 via API in your own applications:
-
-```json
-{
-  "model": "claude-opus-4-8",
-  "max_tokens": 8192,
-  "thinking": { "type": "adaptive" },
-  "effort": "high"
-}
-```
-
-Effort levels: `"low"`, `"medium"`, `"high"` (high = default on Opus 4.8).
-- Use `"low"` for simpler Opus tasks to save tokens
-- Use `"high"` for security audits, architecture reviews, complex synthesis
-- `budget_tokens` is DEPRECATED on Opus 4.6+ — use `effort` instead
-
-**Note:** This is for when you're BUILDING an app that calls Claude's API.
-In Claude Code terminal, you don't set these parameters — just use `/model`.
-
----
-
-## The Opus Trap (Common Mistake)
-
-**Wrong reason to switch to Opus:**
-- "My context is at 40% and I'm stuck" → No. That's a session management issue, not a model issue. /compact or fresh session.
-- "I want the best possible answer" → Sonnet 4.6 is excellent for 90% of tasks. Don't pay the Opus cost unnecessarily.
-- "This is important work" → Importance ≠ complexity. Important + mechanical = still Sonnet.
-
-**Right reason to switch to Opus:**
-- The task genuinely requires deep reasoning, synthesis, or catching subtle edge cases
-- Specifically: security audits, complex architectural decisions, final pre-merge reviews
+**Escalation protocol:** switch model → open a FRESH session (never carry the old context
+into the expensive model) → do the high-stakes task → commit → switch back → fresh session.
 
 ---
 
 ## Daily Usage Limit Strategy
 
-You have a finite daily token budget across Sonnet + Opus combined.
+You have a finite daily/subscription budget across all tiers combined. The ratio, not the
+absolute number, is what matters: Tier 3 costs roughly **3–5× more per exchange** than
+Tier 2 (check the cost-tier and burn-rate columns in the profile table for your models).
 
 **If you're near the limit mid-day:**
-1. Check: is remaining work mechanical? → Use Sonnet, conserve Opus
-2. Is remaining work critical quality gate? → Spend Opus, it's worth it
-3. Commit everything done, update AGENT.md, end for the day
-4. Limit resets daily — tomorrow you're full again
+1. Remaining work mechanical? → Tier 2, conserve Tier 3 budget.
+2. Remaining work a critical quality gate? → Spend Tier 3, it's worth it.
+3. Otherwise: commit everything done, update the Agent Brain handoff, end for the day.
 
-**The math:** Using Opus costs roughly 3-5x more tokens per exchange than Sonnet.
-Opus session for security audit (~50 exchanges) = ~150-250k tokens.
-Sonnet session for same work = ~50-80k tokens.
-Reserve Opus for when it actually matters.
+**Fast-burn models:** some frontier models drain quota several times faster per exchange
+(see the burn-rate column). On those, set your checkpoint instrument to the LOWER
+token-limit from the profile table at session start — turn counts alone under-report burn.
+
+---
+
+## Appendix — Harness Cheatsheet (example-only, dated; IDs live in the profile table)
+
+Claude Code: `/model <id-from-profile-table>` switches models; open a fresh terminal after.
+API calls (when BUILDING an app, not in a coding harness): set the reasoning knob listed
+in the profile table's Knobs column (e.g. `effort` on Anthropic frontier models) — `low`
+for simple tasks to save tokens, `high` for audits/architecture. Verify current parameter
+names at provider docs before shipping; they drift.

@@ -43,7 +43,7 @@ VARIABLE (you control this):
 For a deadline day (like Baitorng June 18-20), structure time like this:
 
 ```
-Session 1 — [Task Name] (Model: Sonnet/Opus)
+Session 1 — [Task Name] (Tier: per references/03-model-routing.md)
   Start: Open terminal → "Read AGENT.md" → wait for briefing
   Give task: ONE complete message with: what to build + files to touch + success criteria
   Work: build → test → verify
@@ -52,7 +52,7 @@ Session 1 — [Task Name] (Model: Sonnet/Opus)
 
 [15 min break — let your brain reset]
 
-Session 2 — [Task Name] (Model: Sonnet/Opus)
+Session 2 — [Task Name] (Tier: per references/03-model-routing.md)
   Same protocol. Fresh terminal = fresh token budget.
   ...
 
@@ -64,7 +64,7 @@ Session 4 — [Buffer/Review]
   Use Senior Code Reviewer skill or /code-review
 ```
 
-**Why sessions are separate:** Each fresh terminal = full 1M token budget. Chaining sessions = accumulating noise that degrades reasoning quality over time.
+**Why sessions are separate:** Each fresh terminal = a full fresh token budget (window size: profile table). Chaining sessions = accumulating noise that degrades reasoning quality over time.
 
 ---
 
@@ -72,7 +72,7 @@ Session 4 — [Buffer/Review]
 
 ```
 Task is still in progress?
-├── YES → Is context > 50%?
+├── YES → Is context past the compaction threshold? (numbers live in references/evidence.md)
 │          ├── YES → /compact (update AGENT.md first)
 │          └── NO  → Keep going, monitor /context
 └── NO (task committed) → ALWAYS start fresh session
