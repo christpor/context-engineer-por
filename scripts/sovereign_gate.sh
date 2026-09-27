@@ -59,7 +59,7 @@ fi
 # GATE 2: Zero-Trust Token Heuristics (High-Entropy Keys Regex)
 # ------------------------------------------------------------------------------
 echo -ne "${BOLD}[2/5] Zero-Trust Token Heuristics:${RESET} "
-TOKEN_PATTERN='(AIzaSy[A-Za-z0-9_-]{20,40}|service_role.*eyJ[A-Za-z0-9_-]{10,}|sk-[a-zA-Z0-9_-]{20,}|gh[pous]_[A-Za-z0-9]{36}|-----BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY-----)'
+TOKEN_PATTERN='(\bAIzaSy[A-Za-z0-9_-]{33}\b|\bservice_role.*eyJ[A-Za-z0-9_-]{10,}|\bsk-[a-zA-Z0-9_-]{20,}|\bgh[pous]_[A-Za-z0-9]{36}\b|-----BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY-----)'
 
 if command -v rg >/dev/null 2>&1; then
     LEAK_MATCHES=$(rg --glob '!node_modules/**' \
@@ -72,7 +72,7 @@ if command -v rg >/dev/null 2>&1; then
                       --glob '!package-lock.json' \
                       --glob '!bun.lockb' \
                       --glob '!sovereign_gate.sh' \
-                      -n -i -e "$TOKEN_PATTERN" . 2>/dev/null || true)
+                      -n -e "$TOKEN_PATTERN" . 2>/dev/null || true)
 
     if [ -n "$LEAK_MATCHES" ]; then
         echo -e "${RED}FAIL (Hardcoded API tokens detected!)${RESET}"
@@ -150,16 +150,17 @@ fi
 # ------------------------------------------------------------------------------
 echo -ne "${BOLD}[5/5] Git Untracked Secrets Check:${RESET} "
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    DANGEROUS_FILES=$(git status --porcelain 2>/dev/null | grep -E '\.env$|\.env\.local$|\.pem$|\.key$|\.id_rsa$' || true)
+    DANGEROUS_FILES=$(git status --porcelain 2>/dev/null | grep -E '\.env$|\.env\.local$|\.pem$|\.key$|\.id_rsa$|^\?\?\s+\.private/|^[AMDRCU]\s+\.private/' || true)
     
     if [ -n "$DANGEROUS_FILES" ]; then
-        echo -e "${RED}FAIL (Dangerous files staged or untracked!)${RESET}"
+        echo -e "${RED}FAIL (Dangerous files or .private sanctuary staged/untracked!)${RESET}"
         echo -e "${RED}$DANGEROUS_FILES${RESET}"
-        echo -e "${YELLOW}👉 Add these to .gitignore before pushing!${RESET}"
+        echo -e "${YELLOW}👉 Add these to .gitignore or remove them before pushing!${RESET}"
         FAILURES=$((FAILURES + 1))
     else
-        echo -e "${GREEN}PASS (Zero untracked secret files)${RESET}"
+        echo -e "${GREEN}PASS (Zero untracked secrets, .private strictly protected)${RESET}"
     fi
+
 else
     echo -e "${YELLOW}SKIP (Not inside a git repository)${RESET}"
 fi

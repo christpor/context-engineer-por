@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="https://shieldcn.dev/badge/Version-v6.0?variant=secondary&theme=emerald" alt="Version" />
+  <img src="https://shieldcn.dev/badge/Version-v6.2?variant=secondary&theme=emerald" alt="Version" />
   <img src="https://shieldcn.dev/badge/Engine-Progressive_Tiers?variant=secondary&theme=blue" alt="Engine" />
   <img src="https://shieldcn.dev/badge/Security-Sovereign_Gate_5%2F5?variant=secondary&theme=cyan" alt="Security" />
   <img src="https://shieldcn.dev/badge/License-MIT?variant=secondary&theme=zinc" alt="License" />
@@ -121,7 +121,7 @@ The bundled `scripts/sovereign_gate.sh` verifies every commit before pushing:
 </details>
 
 <details>
-<summary><b>📚 4.3 The 12 Modular Context Engineering Units Index</b></summary>
+<summary><b>📚 4.3 The 13 Modular Context Engineering Units Index</b></summary>
 <br>
 
 All modular knowledge units are located in [`modules/`](./modules/) and [`references/`](./references/):
@@ -140,6 +140,7 @@ All modular knowledge units are located in [`modules/`](./modules/) and [`refere
 | **`09-cross-tool.md`** | Cross-platform compatibility strategies for multi-agent workflows. |
 | **`10-universal.md`** | The universal context format: interoperability across all modern harnesses. |
 | **`11-skill-integrity.md`** | Self-healing skill auditor ensuring tools adhere to sovereign standards. |
+| **`12-epistemic-clone-vault.md`** | Epistemic clone vault architecture, 4-tier memory topology, and universal `brain-log` cross-project telemetry. |
 | **`references/00-model-profiles.md`** | Exact context limits and attention thresholds across Claude, Gemini, GPT, DeepSeek. |
 
 </details>

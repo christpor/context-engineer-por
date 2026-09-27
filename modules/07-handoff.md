@@ -22,3 +22,5 @@ this order, because getting it wrong silently loses work:
 3. **Always preserve:** architecture decisions, **unresolved bugs**, and *why* you chose an approach
    (the **reasoning trace**, not just the conclusion — the next agent needs to backtrack if it was wrong).
 4. **Always discard:** redundant tool outputs, raw logs, exploratory dead-ends. Those are noise next session.
+5. **Universal Epistemic Sync (`brain-log`):** After updating local `AGENT.md`, invoke `brain-log` (see `modules/12-epistemic-clone-vault.md`) to broadcast the session's TL;DR, decisions, and takeaways into the global second brain (`~/.agents/memory/`) with zero git pollution.
+

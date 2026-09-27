@@ -89,3 +89,5 @@ Variable cost you control:
 - Loading full skill at session start → token waste
 - Multiple tasks per session → always one concern, one commit, then fresh
 - Letting AGENT.md grow past 100 lines → agent starts missing things
+- Letting `current_sprint.md` exceed 100 lines → amnesia/bloat (rotate past items to Tier 2 daily files immediately)
+

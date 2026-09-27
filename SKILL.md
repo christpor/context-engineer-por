@@ -56,7 +56,9 @@ Before writing anything visible, scan:
 | **[2] Trim / Fix Amnesia** | Context bloated, amnesia, token warnings | `modules/02-trim.md` / `03-session.md` |
 | | Fresh agent confused, missed context | `modules/05-amnesia.md` |
 | **[3] Handoff / Learnings** | Session ending, handoff protocol | `modules/07-handoff.md` |
+| | Global Second Brain & Epistemic Clone Vault (`brain-log`) | `modules/12-epistemic-clone-vault.md` |
 | | Agent repeated a past mistake, or a successful workflow should be captured as a skill | `modules/08-correction.md` |
+
 | **[4] Meta / Tooling** | Switching AI tools mid-project | `modules/09-cross-tool.md` |
 | | "Which model should I use?" | `modules/04-model-tier.md` |
 | | Model names / windows / burn rates (ONLY file with model-specific numbers) | `references/00-model-profiles.md` |
@@ -117,7 +119,10 @@ Defines the AI's specific job description and permissions for this repository:
 ---
 
 ## Self-Updating Note
+**v6.2 — 2026-09-22.** Added Module 12 (Epistemic Clone Vault & Universal Telemetry). Enforced 4-Tier Memory Topology (Tier 0 ≤100-line sprint, Tier 1 TIMELINE.md master table, Tier 2 atomic daily logs, Tier 3 JSONL clone vectors). Integrated `brain-log` cross-project CLI protocol for zero-working-tree-pollution handoffs across disparate repositories.
+
 **v6.1 — 2026-08-24.** Added Module 11 (Skill Integrity Checklist) — mandatory sections for
+
 infra/billing/auth/data-touching skills. Hardened Module 08 with proactive scan (check learnings
 + skill completeness BEFORE executing, not just after mistakes). Extended Reference 01 audit
 protocol with 5-point Infra Safety Audit + 3 new red flags. Triggered by billing incident where
